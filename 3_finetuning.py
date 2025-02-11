@@ -95,5 +95,5 @@ def train_finetuned_model(checkpoint_path, suffix, encoder_name, decoder_attenti
     trainer.fit(s2s1_model, train_dataloaders=train_loader, val_dataloaders=val_loader)
 
 if __name__ == '__main__':
-    checkpoint_path = r'./models/se_resnext50_32x4d_6S_None/qji032p2/checkpoints/loss=0.07499314099550247.ckpt'
-    train_finetuned_model(checkpoint_path, '6S', "mit_b5", None)
+    checkpoint_path = r'./models/timm-efficientnet-b7_6S_None/yitdzdeu/checkpoints/loss=0.07400769740343094.ckpt'
+    train_finetuned_model(checkpoint_path, '6S', "timm-efficientnet-b7", None)
