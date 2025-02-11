@@ -9,9 +9,9 @@ from utils import reclassify_month, dilate_image, preprocess_s1, preprocess_s2, 
 
 warnings.simplefilter("ignore")
 
-root_dir = os.getcwd() # Change to the root folder where you downloaded raw data
+root_dir = "/home/aymen.tasneem/assad/biomassters_data" # Change to the root folder where you downloaded raw data
 
-train_img_dir = f"{root_dir}/train_features"
+train_img_dir = f"{root_dir}/Volumes/Samsung_T5/BIOMASS/BioMasster_Dataset/v1/DrivenData/train_features"
 test_img_dir = f"{root_dir}/test_features"
 
 CORES = multiprocessing.cpu_count() // 2
