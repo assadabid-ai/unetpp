@@ -21,7 +21,7 @@ np.set_printoptions(suppress=True)
 pd.set_option('display.float_format', lambda x: '%.2f' % x)
 torch.set_printoptions(sci_mode=False)
 
-root_dir = os.getcwd() # Change to the folder where you stored preprocessed training data
+root_dir = "/home/aymen.tasneem/assad/biomassters_data" # Change to the folder where you stored preprocessed training data
 
 S1_CHANNELS = {'2S': 8, '2SI': 12, '3S': 12, '4S': 16, '4SI': 24, '6S': 24}
 S2_CHANNELS = {'2S': 20, '2SI': 38, '3S': 30, '4S': 40, '4SI': 48, '6S': 60}
@@ -123,8 +123,5 @@ def train_base_model(suffix, encoder_name, encoder_weights, decoder_attention_ty
 
 
 if __name__ == '__main__':
-    train_base_model('6S', "mit_b5", "imagenet", None)
+    train_base_model('6S', "timm-efficientnet-b7", "advprop", None)
 
-if __name__ == '__main__':
-    checkpoint_path = r'./models/se_resnext50_32x4d_6S_None/qji032p2/checkpoints/loss=0.07499314099550247.ckpt'
-    train_finetuned_model(checkpoint_path, '6S', "mit_b5", None)
