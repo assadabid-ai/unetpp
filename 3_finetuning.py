@@ -6,14 +6,14 @@ import segmentation_models_pytorch as smp
 import torch
 import rasterio as rio
 from pytorch_lightning import Trainer
-# from pytorch_lightning.loggers import WandbLogger
+from pytorch_lightning.loggers import WandbLogger
 from sklearn.model_selection import train_test_split
 from pytorch_lightning.callbacks import ModelCheckpoint, LearningRateMonitor
 import warnings
 from torchsummary import summary
 from torch.utils.data import DataLoader
 import json
-# import wandb
+import wandb
 from utils import calcuate_mean_std, stratify_data, freeze_encoder, BioMasstersDatasetS2S1, SentinelModel
 
 warnings.filterwarnings("ignore", category=rio.errors.NotGeoreferencedWarning)
@@ -76,8 +76,8 @@ def train_finetuned_model(checkpoint_path, suffix, encoder_name, decoder_attenti
     # summary(s2s1_model.cuda(), (S2_CHANNELS['6S']+S1_CHANNELS['6S'], 256, 256)) 
 
 
-#     wandb_logger = WandbLogger(save_dir=f'./models', name=f'{encoder_name}_6S_{decoder_attention_type}', 
-#                                project=f'{encoder_name}_6S_{decoder_attention_type}')
+    wandb_logger = WandbLogger(save_dir=f'./models', name=f'{encoder_name}_6S_{decoder_attention_type}', 
+                               project=f'{encoder_name}_6S_{decoder_attention_type}')
 
     ## Define a trainer and start training:
     on_best_valid_loss = ModelCheckpoint(filename="{epoch}-{valid/loss}", mode='min', save_last=True,
@@ -89,7 +89,7 @@ def train_finetuned_model(checkpoint_path, suffix, encoder_name, decoder_attenti
 
     # Initialize a trainer
     trainer = Trainer(precision=16, accelerator="gpu", devices=1, max_epochs=100, 
-                      # logger=[wandb_logger], 
+                      logger=[wandb_logger], 
                       callbacks=checkpoint_callback)
     # Train the model ⚡
     trainer.fit(s2s1_model, train_dataloaders=train_loader, val_dataloaders=val_loader)
